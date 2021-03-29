@@ -1,5 +1,4 @@
 import { LitElement, html, css } from 'https://cdn.pika.dev/lit-element';
-import './lib/cleave-esm.min.js';
 import './chart/chart.js';
 
 let _inf = (n) => {
@@ -60,19 +59,7 @@ customElements.define('lit-credit-calculator', class LitCreditCalculator extends
 
     firstUpdated() {
         super.firstUpdated();
-        this._ca = new Cleave(this.renderRoot.getElementById('creditAmount'), {
-            numeral: true,
-            delimiter: ' ',
-            numeralPositiveOnly: true
-        });
-        this._dt = new Cleave(this.renderRoot.getElementById('date'), {
-            date: true,
-            datePattern: ['Y', 'm', 'd'],
-            delimiter: '-'
-        });
-        setTimeout(() => {
-            this._calc();
-        }, 50);
+        this._calc();
     }
 
     static get styles() {
@@ -177,7 +164,7 @@ customElements.define('lit-credit-calculator', class LitCreditCalculator extends
     }
 
     _calc() {
-        let S = this.creditAmount = Number(this._ca.getRawValue());
+        let S = this.creditAmount = Number( this.renderRoot.getElementById('creditAmount').value);
         this.loanInterest = Number( this.renderRoot.getElementById('loanInterest').value);
         let p =  this.loanInterest / 12 / 100;
         let n = this.timeCredit = Number(this.renderRoot.getElementById('timeCredit').value);
