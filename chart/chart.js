@@ -4,11 +4,11 @@ import 'https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js';
 customElements.define('lit-chart', class LitChart extends LitElement {
     static get properties() {
         return {
-            type: { type: String, default: 'line', list: ['line', 'bar', 'pie', 'radar', 'doughnut', 'polarArea'] },
+            type: { type: String },
             data: { type: Object },
             options: { type: Object },
-            width: { type: String, default: '100%' },
-            height: { type: String, default: '100%' }
+            width: { type: String },
+            height: { type: String }
         }
     }
 
@@ -51,7 +51,7 @@ customElements.define('lit-chart', class LitChart extends LitElement {
     }
 
     init() {
-        if (this.chart && this.chart.destroy) this.chart.destroy();
+        if (this.chart?.destroy) this.chart.destroy();
         this.chart = new Chart(this.ctx, {
             type: this.type,
             data: this.data,
